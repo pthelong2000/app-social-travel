@@ -5,4 +5,4 @@ spring:
   application:
     name: API-GATEWAY
   config:
-    import: optional:configserver:http://${CONFIG_SERVER_HOST:localhost}:9296
+    import: optional:configserver:http://${CONFIG_SERVER_HOST:localhost}:9296/
