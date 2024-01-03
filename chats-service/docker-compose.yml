@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  sql-server:
+    image: mcr.microsoft.com/mssql/server
+    container_name: sql-server
+    environment:
+      MSSQL_SA_PASSWORD: 'yourStrong(!)Password'
+      ACCEPT_EULA: Y
+    ports:
+      - "1434:1434"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - sql-server-data:/var/opt/mssql/data
+    networks:
+      - db-network
+    user: root
+
+networks:
+  db-network:
+    driver: bridge
+
+volumes:
+  sql-server-data:
+    driver: local
