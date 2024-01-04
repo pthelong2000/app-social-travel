@@ -1,4 +1,11 @@
 package app.postservice.service;
 
-public class PostContentService {
+import app.postservice.entity.Post_Article;
+import app.postservice.request.PostContentRequest;
+
+import java.io.IOException;
+
+public interface PostContentService {
+
+    void savePostContent(PostContentRequest postContentRequest);
 }
