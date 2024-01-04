@@ -1,1 +1,27 @@
+spring:
+  cloud:
+    config:
+      import:
+        - optional:configserver:http://localhost:9296
+      import-check: false
+      enabled: false
 
+  thymeleaf:
+    cache: false
+  datasource:
+    url: jdbc:mysql://localhost:3308/post_article_db?useSSL=false
+    username: root
+    password: mk123654
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      properties:
+        hibernate:
+          validator:
+            apply_to_ddl: false
+        dialect: org.hibernate.dialect.MySQL5Dialect
+server:
+  port: 8080
