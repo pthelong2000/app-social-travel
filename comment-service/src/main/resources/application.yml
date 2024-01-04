@@ -2,6 +2,15 @@ server:
   port: 8090
 
 spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/comment_db?useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+      database-platform: org.hibernate.dialect.MySQL8Dialect
+      hibernate:
+        ddl-auto: update
   application:
     name: COMMENT-SERVICE
   config:

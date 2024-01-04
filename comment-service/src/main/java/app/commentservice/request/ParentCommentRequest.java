@@ -1,4 +1,4 @@
 package app.commentservice.request;
 
-public class ParentCommentRequest {
+public record ParentCommentRequest(long post_id, long user_id, String content) {
 }
