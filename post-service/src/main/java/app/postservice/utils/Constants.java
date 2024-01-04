@@ -8,13 +8,17 @@ import java.util.Locale;
 
 @Component
 @RequiredArgsConstructor
-public class Contants {
+public class Constants {
 
     private static MessageSource messageSource;
 
-    public static String BAD_ = getMessage("error.requiredField");
-    public static String ERROR_INVALID_EMAIL = getMessage("error.invalidEmail");
+    public static final String BAD_REQUEST = getMessage("message.error.response.400");
 
+    public static final String UNAUTHORIZED = getMessage("message.error.response.401");
+
+    public static final String FORBIDDEN = getMessage("message.error.response.403");
+
+    public static final String NOT_FOUND = getMessage("message.error.response.404");
 
     private static String getMessage(String key) {
         return messageSource.getMessage(key, null, Locale.getDefault());
