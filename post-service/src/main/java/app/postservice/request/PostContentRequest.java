@@ -1,11 +1,11 @@
 package app.postservice.request;
 
+import jakarta.persistence.Transient;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Column;
-import javax.persistence.Transient;
+
 
 @Getter
 @Builder
