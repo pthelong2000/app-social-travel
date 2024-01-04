@@ -2,11 +2,13 @@ package app.postservice.service.ipml;
 
 import app.postservice.entity.Images;
 import app.postservice.entity.Post_Article;
+import app.postservice.exception.custom.PostArticleCustomException;
 import app.postservice.repository.ImageRepository;
 import app.postservice.repository.PostCustomRepository;
 import app.postservice.repository.PostRepository;
 import app.postservice.request.PostContentRequest;
 import app.postservice.service.PostContentService;
+import app.postservice.utils.Constants;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import lombok.RequiredArgsConstructor;
@@ -35,8 +37,11 @@ public class PostContentServiceIpml implements PostContentService {
     @Transactional
     public void savePostContent(PostContentRequest postContentRequest) {
 
-        if (Objects.nonNull(postContentRequest.getTitle())) {
-            return;
+        if (Objects.nonNull(postContentRequest.getTitle())
+                && Objects.nonNull(postContentRequest.getAuthor())
+                && Objects.nonNull(postContentRequest.getContent())
+                && Objects.nonNull(postContentRequest.getImage())) {
+            throw new PostArticleCustomException(Constants.BAD_REQUEST);
         }
         String img = null;
         try {

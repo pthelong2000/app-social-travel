@@ -7,5 +7,5 @@ import java.io.IOException;
 
 public interface PostContentService {
 
-    void savePostContent(PostContentRequest postContentRequest) throws IOException;
+    void savePostContent(PostContentRequest postContentRequest);
 }
