@@ -1,17 +1,16 @@
 version: '3'
 
 services:
-  sql-server:
-    image: mcr.microsoft.com/mssql/server
-    container_name: sql-server
+  mysql:
+    image: mysql
+    container_name: mysql
     environment:
-      MSSQL_SA_PASSWORD: 'yourStrong(!)Password'
-      ACCEPT_EULA: Y
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: chatdb
     ports:
-      - "1434:1434"
+      - "3310:3306"
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-      - sql-server-data:/var/opt/mssql/data
+      - mysql-data:/var/lib/mysql
     networks:
       - db-network
     user: root
@@ -21,5 +20,5 @@ networks:
     driver: bridge
 
 volumes:
-  sql-server-data:
+  mysql-data:
     driver: local

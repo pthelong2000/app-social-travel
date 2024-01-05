@@ -1,4 +1,6 @@
 package app.chatsservice.repository.impl;
 
-public class ConversationCustomRepositoryImpl {
+import app.chatsservice.repository.ConversationCustomRepository;
+
+public class ConversationCustomRepositoryImpl implements ConversationCustomRepository {
 }
