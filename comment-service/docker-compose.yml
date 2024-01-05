@@ -2,7 +2,6 @@ version: '3'
 
 services:
   mysql-db:
-    build: .
     image: mysql
     container_name: mysql-container
     ports:
