@@ -9,6 +9,7 @@ import app.postservice.repository.PostRepository;
 import app.postservice.dto.request.PostContentRequest;
 import app.postservice.service.PostContentService;
 import app.postservice.utils.Constants;
+import app.postservice.utils.message.MessageUtils;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,8 @@ public class PostContentServiceIpml implements PostContentService {
 
     private final PostRepository postRepository;
 
+    private final MessageUtils messageUtils;
+
     private final PostCustomRepository postCustomRepository;
 
     private final ImageRepository imageRepository;
@@ -42,7 +45,7 @@ public class PostContentServiceIpml implements PostContentService {
                 && Objects.nonNull(postContentRequest.getAuthor())
                 && Objects.nonNull(postContentRequest.getContent())
                 && Objects.nonNull(postContentRequest.getImage())) {
-            throw new PostArticleCustomException(Constants.BAD_REQUEST);
+            throw new PostArticleCustomException(messageUtils.getMessage(Constants.UPLOAD_IMG_FAILED));
         }
         String img = null;
         try {

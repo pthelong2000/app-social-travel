@@ -19,13 +19,6 @@ public class WebConfig {
     }
 
     @Bean
-    public MessageSource messageSource() {
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename("message");
-        return messageSource;
-    }
-
-    @Bean
     public Cloudinary cloudinaryConfig() {
         Map config = new HashMap();
         config.put("cloud_name", "springtestimageapi");
