@@ -1,4 +1,4 @@
-package app.postservice.response;
+package app.postservice.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;

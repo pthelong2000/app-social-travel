@@ -6,7 +6,7 @@ import app.postservice.exception.custom.PostArticleCustomException;
 import app.postservice.repository.ImageRepository;
 import app.postservice.repository.PostCustomRepository;
 import app.postservice.repository.PostRepository;
-import app.postservice.request.PostContentRequest;
+import app.postservice.dto.request.PostContentRequest;
 import app.postservice.service.PostContentService;
 import app.postservice.utils.Constants;
 import com.cloudinary.Cloudinary;
