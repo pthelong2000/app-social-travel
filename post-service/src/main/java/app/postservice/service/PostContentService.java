@@ -1,9 +1,6 @@
 package app.postservice.service;
 
-import app.postservice.entity.Post_Article;
-import app.postservice.request.PostContentRequest;
-
-import java.io.IOException;
+import app.postservice.dto.request.PostContentRequest;
 
 public interface PostContentService {
 

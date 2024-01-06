@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.1.6'
+    id 'org.springframework.boot' version '2.5.4'
     id 'io.spring.dependency-management' version '1.1.4'
 }
 
@@ -22,7 +22,7 @@ repositories {
 }
 
 ext {
-    set('springCloudVersion', "2022.0.4")
+    set('springCloudVersion', "2020.0.4")
 }
 
 dependencies {
@@ -31,9 +31,9 @@ dependencies {
     implementation group: 'com.cloudinary', name: 'cloudinary-core', version: '1.30.0'
     implementation group: 'com.cloudinary', name: 'cloudinary-http44', version: '1.30.0'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.mysql:mysql-connector-j:8.0.33'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

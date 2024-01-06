@@ -1,6 +1,6 @@
 package app.postservice.controller;
 
-import app.postservice.request.PostContentRequest;
+import app.postservice.dto.request.PostContentRequest;
 import app.postservice.service.PostContentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
-package app.postservice.request;
+package app.postservice.dto.request;
 
-import jakarta.persistence.Transient;
+import javax.persistence.Transient;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
