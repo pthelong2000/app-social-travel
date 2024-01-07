@@ -1,14 +1,17 @@
 package app.chatsservice.service.impl;
 
+import app.chatsservice.dto.response.ConversationNameResponse;
 import app.chatsservice.dto.response.ConversationResponse;
 import app.chatsservice.entity.Conversation;
 import app.chatsservice.entity.ConversationMember;
+import app.chatsservice.repository.ConversationCustomRepository;
 import app.chatsservice.repository.ConversationMemberRepository;
 import app.chatsservice.repository.ConversationRepository;
 import app.chatsservice.service.ConversationService;
 import app.chatsservice.utils.SystemDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
@@ -18,12 +21,14 @@ import java.util.List;
 import java.util.function.Function;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ConversationServiceImpl implements ConversationService {
 
     private final SystemDateTime systemDateTime;
     private final ConversationRepository conversationRepository;
     private final ConversationMemberRepository conversationMemberRepository;
+    private final ConversationCustomRepository conversationCustomRepository;
     private final Function<String, DateTimeFormatter> formatterFunction = DateTimeFormatter::ofPattern;
 
     @Override
@@ -57,6 +62,30 @@ public class ConversationServiceImpl implements ConversationService {
                                 .build())
                         .toList())
                 .isGroupChat(conversation.getIsGroupChat())
+                .build();
+    }
+
+    @Override
+    public ConversationNameResponse updateConversationName(Long conversationId, String conversationName) {
+        // User id of the authenticated user
+        Long authUserId = 1L;
+
+        Conversation conversation = conversationRepository.findById(conversationId)
+                .orElseThrow(() -> new RuntimeException("Conversation not found"));
+
+        List<ConversationMember> conversationMembers = conversationMemberRepository
+                .findByConversationId(conversationId);
+
+        if (CollectionUtils.isEmpty(conversationMembers) || conversationMembers.stream()
+                .noneMatch(conversationMember -> conversationMember.getMemberId().equals(authUserId))) {
+            throw new RuntimeException("Conversation member not found");
+        }
+
+        conversationCustomRepository.updateConversationName(conversationId, conversationName);
+
+        return ConversationNameResponse.builder()
+                .conversationId(String.valueOf(conversation.getId()))
+                .conversationName(conversation.getConversationName())
                 .build();
     }
 
