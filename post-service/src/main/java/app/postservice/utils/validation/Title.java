@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.PARAMETER})
-@Constraint(validatedBy = {ContentValidator.class})
+@Constraint(validatedBy = {TitleValidator.class})
 public @interface Title {
 
     String message() default "{common.message.validation.title.invalid}";

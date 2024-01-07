@@ -1,4 +1,4 @@
-package app.postservice.utils.validation;
+package com.example.fileservice.utils.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
