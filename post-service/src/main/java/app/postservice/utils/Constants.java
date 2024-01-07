@@ -34,6 +34,8 @@ public class Constants {
 
     public static final String TITLE_NOT_FOUND = "common.message.validation.title.not_found";
 
+    public static final String UPLOAD_IMAGE_FAILED = "common.message.response.upload_img_failed";
 
+    public static final String UPLOAD_VIDEO_FAILED = "common.message.response.upload_video_failed";
 
 }
