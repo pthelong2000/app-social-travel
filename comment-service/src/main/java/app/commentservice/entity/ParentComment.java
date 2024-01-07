@@ -4,6 +4,7 @@ import javax.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -28,4 +29,5 @@ public class ParentComment extends AbstractEntity implements Serializable {
 
     @Column(name = "content")
     private String content;
+
 }

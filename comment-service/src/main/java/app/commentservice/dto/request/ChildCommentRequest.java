@@ -9,4 +9,5 @@ public class ChildCommentRequest {
     private final long parentCommentId;
     private final long userId;
     private final String content;
+    private final long imageId;
 }
