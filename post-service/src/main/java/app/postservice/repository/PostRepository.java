@@ -1,11 +1,12 @@
 package app.postservice.repository;
 
 
-import app.postservice.entity.Post_Article;
+
+import app.postservice.entity.PostArticle;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PostRepository extends JpaRepository<Post_Article, Long> {
+public interface PostRepository extends JpaRepository<PostArticle, Long> {
 
 }

@@ -1,4 +1,4 @@
-package app.postservice.response;
+package app.postservice.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
@@ -14,18 +14,18 @@ public class PostContentResponse {
     @JsonProperty(namespace = "content")
     private final String content;
 
-    @JsonProperty(namespace = "image")
-    private final String image;
+    @JsonProperty(namespace = "image_url")
+    private final String imageUrl;
 
-    @JsonProperty(namespace = "createdAt")
+    @JsonProperty(namespace = "created_at")
     private final String createdAt;
 
-    @JsonProperty(namespace = "createdBy")
+    @JsonProperty(namespace = "created_by")
     private final String createdBy;
 
-    @JsonProperty(namespace = "updatedAt")
+    @JsonProperty(namespace = "updated_at")
     private final String updatedAt;
 
-    @JsonProperty(namespace = "updatedBy")
+    @JsonProperty(namespace = "updated_by")
     private final String updatedBy;
 }

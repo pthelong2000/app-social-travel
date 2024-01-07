@@ -5,7 +5,6 @@ spring:
         - optional:configserver:http://localhost:9296
       import-check: false
       enabled: false
-
   thymeleaf:
     cache: false
   datasource:

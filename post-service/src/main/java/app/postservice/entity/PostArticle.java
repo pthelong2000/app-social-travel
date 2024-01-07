@@ -1,12 +1,13 @@
 package app.postservice.entity;
 
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
 import java.io.Serializable;
 
 @Getter
@@ -15,7 +16,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "post_article")
-public class Post_Article extends AbstractEntity implements Serializable {
+public class PostArticle extends AbstractEntity implements Serializable {
 
     @Id
     @Column(name = "post_id")
@@ -28,9 +29,16 @@ public class Post_Article extends AbstractEntity implements Serializable {
     @Column(name = "post_content")
     private String content;
 
-    @Column(name = "post_image")
+    @Column(name = " id_image")
     private Long idImage;
 
-    @Column(name = "post_author")
-    private String author;
+    @Column(name = "id_tag")
+    private Long idTag;
+
+    @Column(name = "id_view")
+    private Long idView;
+
+    @Column(name = "post_status")
+    private String status;
+
 }
