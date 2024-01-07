@@ -1,0 +1,15 @@
+server:
+  port: 8085
+spring:
+  messages:
+    basename: messages
+    encoding: UTF-8
+    always-use-message-format: false
+    fallback-to-system-locale: true
+    cache-duration: -1
+  cloud:
+    application:
+      name: image-service
+    config:
+        uri: http://localhost:9296
+

@@ -1,10 +1,10 @@
 spring:
+  application:
+    name: post-service
   cloud:
     config:
       import:
-        - optional:configserver:http://localhost:9296
-      import-check: false
-      enabled: false
+        - uri: http://localhost:9296
   thymeleaf:
     cache: false
   datasource:
