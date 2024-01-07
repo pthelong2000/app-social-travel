@@ -30,6 +30,7 @@ dependencies {
     implementation 'javax.validation:validation-api'
     implementation 'org.hibernate.validator:hibernate-validator'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.clamav:clamav-client:1.1.7'
     implementation group: 'com.cloudinary', name: 'cloudinary-core', version: '1.30.0'
     implementation group: 'com.cloudinary', name: 'cloudinary-http44', version: '1.30.0'
     implementation 'org.springframework.boot:spring-boot-starter-web'
