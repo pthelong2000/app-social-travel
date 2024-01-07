@@ -1,5 +1,7 @@
 package app.chatsservice.controller;
 
+import app.chatsservice.dto.request.ConversationNameRequest;
+import app.chatsservice.dto.response.ConversationNameResponse;
 import app.chatsservice.dto.response.ConversationResponse;
 import app.chatsservice.service.ConversationService;
 import lombok.RequiredArgsConstructor;
@@ -23,4 +25,13 @@ public class ConversationController {
     public ResponseEntity<ConversationResponse> createConversation() {
         return null;
     }
+
+    @PatchMapping("/update/{conversationId}/name")
+    public ResponseEntity<ConversationNameResponse> updateConversationName(
+            @PathVariable("conversationId") Long conversationId,
+            @RequestBody ConversationNameRequest conversationNameRequest) {
+        return ResponseEntity.ok(conversationService.updateConversationName(
+                conversationId, conversationNameRequest.getConversationName()));
+    }
+
 }
