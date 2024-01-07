@@ -1,19 +1,19 @@
 package app.postservice.dto.request;
 
-import javax.persistence.Transient;
-
-import app.postservice.validation.Content;
-import app.postservice.validation.ImageSize;
-import app.postservice.validation.VideoSize;
+import app.postservice.utils.validation.Content;
+import app.postservice.utils.validation.ImageSize;
+import app.postservice.utils.validation.VideoSize;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 
-
+import javax.persistence.Transient;
 
 @Getter
 @Builder
-public class PostContentRequest {
+public class UpdatePostArticleRequest {
+
+    private final Long id;
 
     private final String title;
 
@@ -25,5 +25,4 @@ public class PostContentRequest {
     @VideoSize
     @ImageSize
     private final MultipartFile image;
-
 }

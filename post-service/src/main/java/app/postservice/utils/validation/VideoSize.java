@@ -1,4 +1,4 @@
-package app.postservice.validation;
+package app.postservice.utils.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -10,9 +10,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Constraint(validatedBy = {ContentValidator.class})
-public @interface Content {
+public @interface VideoSize {
 
-    String message() default "{common.message.validation.email.invalid}";
+    String message() default "{common.message.validation.video_size.invalid}";
 
     Class<?>[] groups() default {};
 
