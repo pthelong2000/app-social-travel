@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.PARAMETER})
-@Constraint(validatedBy = {ContentValidator.class})
+@Constraint(validatedBy = {FileOrtherValidator.class})
 public @interface FileOrther {
 
     String message() default "{common.message.validation.email.invalid}";
