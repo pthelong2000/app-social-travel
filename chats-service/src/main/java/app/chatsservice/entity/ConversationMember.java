@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -17,11 +18,34 @@ public class ConversationMember extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "conversation_id", nullable = false)
-    private long conversationId;
+    private Long conversationId;
 
     @Column(name = "member_id", nullable = false)
-    private long memberId;
+    private Long memberId;
+
+    @Column(name = "nickname")
+    private String nickname;
+
+    @Override
+    public LocalDateTime getCreatedAt() {
+        return super.createAt;
+    }
+
+    @Override
+    public String getCreatedBy() {
+        return super.createdBy;
+    }
+
+    @Override
+    public LocalDateTime getLastModifiedAt() {
+        return super.lastModifiedAt;
+    }
+
+    @Override
+    public String getLastModifiedBy() {
+        return super.lastModifiedBy;
+    }
 }
