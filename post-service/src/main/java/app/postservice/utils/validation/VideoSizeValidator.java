@@ -1,4 +1,4 @@
-package app.postservice.validation;
+package app.postservice.utils.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

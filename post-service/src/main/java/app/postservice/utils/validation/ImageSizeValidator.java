@@ -1,4 +1,4 @@
-package app.postservice.validation;
+package app.postservice.utils.validation;
 
 import org.springframework.web.multipart.MultipartFile;
 
