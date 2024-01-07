@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
@@ -17,14 +18,18 @@ import java.time.LocalDateTime;
 public abstract class AbstractEntity {
 
     @CreatedBy
+    @Column(name = "created_by", updatable = false, length = 50)
     private String createdBy;
 
     @CreatedDate
-    private LocalDateTime createdAt;
+    @Column(name = "created_date", updatable = false)
+    private LocalDateTime createdDate = LocalDateTime.now();
 
     @LastModifiedBy
+    @Column(name = "last_modified_by")
     private String lastModifiedBy;
 
     @LastModifiedDate
-    private LocalDateTime lastModifiedAt;
+    @Column(name = "last_modified_date")
+    private LocalDateTime lastModifiedDate = LocalDateTime.now();
 }

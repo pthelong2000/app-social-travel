@@ -21,7 +21,7 @@ public class PostCustomIpmlRepository implements PostCustomRepository {
     @Override
     @Transactional(readOnly = true)
     public void findByName(String name) {
-        TypedQuery<String> query = entityManager.createQuery("SELECT p.title FROM Post_Article p WHERE p.title = :name", String.class);
+        TypedQuery<String> query = entityManager.createQuery("SELECT p.title FROM PostArticle p WHERE p.title = :name", String.class);
         query.setParameter("name", name);
         List<String> resultList = query.getResultList();
     }
