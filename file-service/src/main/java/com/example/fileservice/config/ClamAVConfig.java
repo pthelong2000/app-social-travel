@@ -1,2 +1,4 @@
-package com.example.fileservice.config;public class ClamAVConfig {
+package com.example.fileservice.config;
+
+public class ClamAVConfig {
 }
