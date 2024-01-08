@@ -1,5 +1,6 @@
 package app.commentservice.repository.impl;
 
+import app.commentservice.dto.request.ParentCommentRequest;
 import app.commentservice.dto.response.ChildCommentResponse;
 import app.commentservice.dto.response.ParentCommentResponse;
 import app.commentservice.entity.ChildComment;
@@ -23,17 +24,17 @@ public class CommentCustomRepositoryImpl implements CommentCustomRepository {
     private final EntityManager entityManager;
     @Override
     @Transactional(readOnly = true)
-    public Optional<ParentComment> findParentCommentById(long id) {
-        TypedQuery query = entityManager.createQuery("SELECT p FROM ParentComment p WHERE p.id = :id", ParentComment.class);
-        query.setParameter("id", id);
-        return Optional.empty();
+    public List<ParentComment> findParentCommentByPostId(long postId) {
+        TypedQuery query = entityManager.createQuery("SELECT p FROM ParentComment p WHERE p.postId = :id ORDER BY p.createdAt ASC", ParentComment.class);
+        query.setParameter("id", postId);
+        return query.getResultList();
     }
 
     @Override
-    public List<ChildComment> findChildCommentById(long id) {
-        TypedQuery query = entityManager.createQuery("SELECT c FROM ChildComment c WHERE c.id = :id", ChildComment.class);
-        query.setParameter("id", id);
-        List<ChildComment> childComments = query.getResultList();
-        return childComments;
+    public ParentComment addParentComment(ParentComment parentComment) {
+        entityManager.persist(parentComment);
+        return parentComment;
     }
+
+
 }

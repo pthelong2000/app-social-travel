@@ -6,8 +6,11 @@ import app.commentservice.dto.response.ChildCommentResponse;
 import app.commentservice.dto.response.ParentCommentResponse;
 import app.commentservice.service.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,8 +30,9 @@ public class CommentController {
     }
 
     @GetMapping
-    public ResponseEntity<ParentCommentResponse> getParentComment(@RequestParam long id){
-        return new ResponseEntity<>(null);
+    public ResponseEntity<List<ParentCommentResponse>> getParentComment(@RequestParam long id){
+
+        return new ResponseEntity<>(commentService.getListParentCommentByPostId(id), HttpStatus.OK);
     }
 
     @GetMapping
