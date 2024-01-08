@@ -2,11 +2,13 @@ package app.commentservice.service.impl;
 
 import app.commentservice.dto.request.ParentCommentRequest;
 import app.commentservice.dto.response.ParentCommentResponse;
+import app.commentservice.entity.Images;
 import app.commentservice.entity.ParentComment;
 import app.commentservice.repository.ChildCommentRepository;
 import app.commentservice.repository.ImagesRepository;
 import app.commentservice.repository.ParentCommentRepository;
 import app.commentservice.service.CommentService;
+import app.commentservice.service.external.FileService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
@@ -22,14 +24,20 @@ public class CommentServiceImpl implements CommentService {
     private final ParentCommentRepository parentCommentRepository;
     private final ChildCommentRepository childCommentRepository;
     private final ImagesRepository commentImagesRepository;
+    private final FileService fileService;
 
     @Override
     public ParentCommentResponse addParentComment(ParentCommentRequest parentCommentRequest) {
+
+        Images images = Images.builder()
+                .url(fileService.uploadFile(parentCommentRequest.getImage()))
+                .build();
+
         ParentComment parentComment = ParentComment.builder()
                 .postId(parentCommentRequest.getPostId())
                 .userId(parentCommentRequest.getUserId())
                 .content(parentCommentRequest.getContent())
-                .imageId(parentCommentRequest.getImageId())
+                .imageId(images.getId())
                 .build();
         parentComment = parentCommentRepository.addParentComment(parentComment);
         return convertToParentCommentResponse(parentComment);
