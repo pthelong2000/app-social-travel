@@ -1,14 +1,22 @@
 package app.chatsservice.entity;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
+@Getter
+@SuperBuilder
+@MappedSuperclass
+@NoArgsConstructor
+@AllArgsConstructor
 public abstract class AbstractEntity {
 
     @CreatedBy
@@ -22,12 +30,4 @@ public abstract class AbstractEntity {
 
     @LastModifiedDate
     protected LocalDateTime lastModifiedAt;
-
-    public abstract LocalDateTime getCreatedAt();
-
-    public abstract String getCreatedBy();
-
-    public abstract LocalDateTime getLastModifiedAt();
-
-    public abstract String getLastModifiedBy();
 }

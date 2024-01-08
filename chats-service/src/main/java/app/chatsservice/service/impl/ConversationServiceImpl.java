@@ -8,7 +8,6 @@ import app.chatsservice.repository.ConversationCustomRepository;
 import app.chatsservice.repository.ConversationMemberCustomRepository;
 import app.chatsservice.repository.ConversationMemberRepository;
 import app.chatsservice.repository.ConversationRepository;
-import app.chatsservice.repository.impl.ConversationMemberCustomRepositoryImpl;
 import app.chatsservice.service.ConversationService;
 import app.chatsservice.utils.SystemDateTime;
 import lombok.RequiredArgsConstructor;
@@ -54,7 +53,7 @@ public class ConversationServiceImpl implements ConversationService {
                 .id(String.valueOf(conversation.getId()))
                 .conversationName(conversation.getConversationName())
                 .avatar("link avatar")
-                .createdAt(convertDateTimeToString(conversation.getCreatedAt()))
+                .createdAt(convertDateTimeToString(conversation.getCreateAt()))
                 .memberCount(String.valueOf(conversationMembers.size()))
                 .members(conversationMembers.stream()
                         .map(conversationMember -> ConversationResponse.Member.builder()
@@ -118,12 +117,14 @@ public class ConversationServiceImpl implements ConversationService {
                 Conversation.builder()
                         .conversationName("name 1 concat name 2") //todo
                         .isGroupChat(true)
+                        .createAt(systemDateTime.now())
                         .build()).getId();
 
         conversationMemberRepository.saveAll(membersId.stream().map(memberId ->
                 ConversationMember.builder()
                     .conversationId(conversationId)
                     .memberId(Long.parseLong(memberId))
+                    .createAt(systemDateTime.now())
                     .build())
                 .toList());
 
