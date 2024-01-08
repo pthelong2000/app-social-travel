@@ -1,10 +1,12 @@
 package app.chatsservice.controller;
 
 import app.chatsservice.dto.request.ConversationNameRequest;
+import app.chatsservice.dto.request.NewConversationRequest;
 import app.chatsservice.dto.response.ConversationNameResponse;
 import app.chatsservice.dto.response.ConversationResponse;
 import app.chatsservice.service.ConversationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,9 +23,12 @@ public class ConversationController {
         return ResponseEntity.ok(conversationService.getConversationById(conversationId));
     }
 
-    @PostMapping("/create/{userId}")
-    public ResponseEntity<ConversationResponse> createConversation() {
-        return null;
+    @PostMapping("/create")
+    public ResponseEntity<ConversationResponse> createConversation(
+            @RequestBody NewConversationRequest newConversationRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(conversationService.createConversation(
+                        newConversationRequest.getMembersId()));
     }
 
     @PatchMapping("/update/{conversationId}/name")

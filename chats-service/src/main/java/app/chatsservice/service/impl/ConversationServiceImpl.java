@@ -5,8 +5,10 @@ import app.chatsservice.dto.response.ConversationResponse;
 import app.chatsservice.entity.Conversation;
 import app.chatsservice.entity.ConversationMember;
 import app.chatsservice.repository.ConversationCustomRepository;
+import app.chatsservice.repository.ConversationMemberCustomRepository;
 import app.chatsservice.repository.ConversationMemberRepository;
 import app.chatsservice.repository.ConversationRepository;
+import app.chatsservice.repository.impl.ConversationMemberCustomRepositoryImpl;
 import app.chatsservice.service.ConversationService;
 import app.chatsservice.utils.SystemDateTime;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,7 @@ public class ConversationServiceImpl implements ConversationService {
     private final ConversationRepository conversationRepository;
     private final ConversationMemberRepository conversationMemberRepository;
     private final ConversationCustomRepository conversationCustomRepository;
+    private final ConversationMemberCustomRepository conversationMemberCustomRepository;
     private final Function<String, DateTimeFormatter> formatterFunction = DateTimeFormatter::ofPattern;
 
     @Override
@@ -87,6 +90,44 @@ public class ConversationServiceImpl implements ConversationService {
                 .conversationId(String.valueOf(conversation.getId()))
                 .conversationName(conversation.getConversationName())
                 .build();
+    }
+
+    @Override
+    public ConversationResponse createConversation(List<String> membersId) {
+        //todo validate members id
+
+        // User id of the authenticated user
+        Long authUserId = 1L;
+
+        if (CollectionUtils.isEmpty(membersId)) {
+            throw new RuntimeException("Members id is empty");
+        }
+
+        if (membersId.size() == 1) {
+            Long conversationId = conversationMemberCustomRepository
+                    .findConversationIdByTwoMemberId(authUserId, Long.parseLong(membersId.get(0)));
+
+            if (conversationId == null) {
+                conversationId = conversationRepository.save(new Conversation()).getId();
+            }
+
+            return getConversationById(conversationId);
+        }
+
+        Long conversationId = conversationRepository.save(
+                Conversation.builder()
+                        .conversationName("name 1 concat name 2") //todo
+                        .isGroupChat(true)
+                        .build()).getId();
+
+        conversationMemberRepository.saveAll(membersId.stream().map(memberId ->
+                ConversationMember.builder()
+                    .conversationId(conversationId)
+                    .memberId(Long.parseLong(memberId))
+                    .build())
+                .toList());
+
+        return getConversationById(conversationId);
     }
 
     private String convertDateTimeToString(LocalDateTime localDateTime) {

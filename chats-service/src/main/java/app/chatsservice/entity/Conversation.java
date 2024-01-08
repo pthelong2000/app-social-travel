@@ -17,7 +17,7 @@ public class Conversation extends AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "conversation_name", nullable = false)
+    @Column(name = "conversation_name")
     private String conversationName;
 
     @Column(name = "is_group_chat", columnDefinition = "boolean default false")
