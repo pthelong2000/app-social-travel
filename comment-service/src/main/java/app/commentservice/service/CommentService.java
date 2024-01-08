@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface CommentService{
 
-    long addParentComment(ParentCommentRequest parentCommentRequest);
+    ParentCommentResponse addParentComment(ParentCommentRequest parentCommentRequest);
     List<ParentCommentResponse> getListParentCommentByPostId(long postId);
+    ParentCommentResponse updateParentComment(Long id, String content);
+    void deleteParentComment(Long id);
 }

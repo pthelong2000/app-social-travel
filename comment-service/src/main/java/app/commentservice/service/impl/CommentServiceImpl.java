@@ -8,6 +8,7 @@ import app.commentservice.repository.ImagesRepository;
 import app.commentservice.repository.ParentCommentRepository;
 import app.commentservice.service.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,7 +24,7 @@ public class CommentServiceImpl implements CommentService {
     private final ImagesRepository commentImagesRepository;
 
     @Override
-    public long addParentComment(ParentCommentRequest parentCommentRequest) {
+    public ParentCommentResponse addParentComment(ParentCommentRequest parentCommentRequest) {
         ParentComment parentComment = ParentComment.builder()
                 .postId(parentCommentRequest.getPostId())
                 .userId(parentCommentRequest.getUserId())
@@ -31,7 +32,7 @@ public class CommentServiceImpl implements CommentService {
                 .imageId(parentCommentRequest.getImageId())
                 .build();
         parentComment = parentCommentRepository.addParentComment(parentComment);
-        return parentComment.getId();
+        return convertToParentCommentResponse(parentComment);
     }
 
     @Override
@@ -40,27 +41,49 @@ public class CommentServiceImpl implements CommentService {
         if (parentCommentList.isEmpty()) {
             return List.of();
         }
-        List<ParentCommentResponse> parentCommentResponseList = parentCommentList.stream()
-                .map(parentComment -> ParentCommentResponse.builder()
-                        .postId(String.valueOf(parentComment.getPostId()))
-                        .userId(String.valueOf(parentComment.getUserId()))
-                        .content(parentComment.getContent())
-                        .image(commentImagesRepository.findImagesById(parentComment.getImageId()).orElse(null).getUrl())
-                        .createdBy(parentComment.getCreatedBy())
-                        .createdAt(convertDateTimeToString(parentComment.getCreatedAt()))
-                        .updatedBy(parentComment.getLastModifiedBy())
-                        .updatedAt(convertDateTimeToString(parentComment.getLastModifiedAt()))
-                        .build())
+        return parentCommentList.stream()
+                .map(this::convertToParentCommentResponse)
                 .toList();
-        return parentCommentResponseList;
+    }
+
+    @Override
+    public ParentCommentResponse updateParentComment(Long id, String content) {
+
+        ParentComment parentComment = parentCommentRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Parent comment not found")
+        );
+        if (StringUtils.isNotBlank(content)) {
+            parentCommentRepository.updateParentComment(id, content);
+        }
+
+        return convertToParentCommentResponse(parentComment);
+    }
+
+    @Override
+    public void deleteParentComment(Long id) {
+        parentCommentRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Parent comment not found")
+        );
+
+        parentCommentRepository.deleteById(id);
     }
 
     private String convertDateTimeToString(LocalDateTime dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
-        // Chuyển đổi LocalDateTime thành String
-        String formattedDateTime = dateTime.format(formatter);
+        return dateTime.format(formatter);
+    }
 
-        return formattedDateTime;
+    private ParentCommentResponse convertToParentCommentResponse(ParentComment parentComment) {
+        return ParentCommentResponse.builder()
+                .postId(String.valueOf(parentComment.getPostId()))
+                .userId(String.valueOf(parentComment.getUserId()))
+                .content(parentComment.getContent())
+                .image(commentImagesRepository.findImagesById(parentComment.getImageId()).orElse(null).getUrl())
+                .createdBy(parentComment.getCreatedBy())
+                .createdAt(convertDateTimeToString(parentComment.getCreatedAt()))
+                .updatedBy(parentComment.getLastModifiedBy())
+                .updatedAt(convertDateTimeToString(parentComment.getLastModifiedAt()))
+                .build();
     }
 }
