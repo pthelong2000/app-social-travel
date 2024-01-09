@@ -75,6 +75,10 @@ public class ConversationServiceImpl implements ConversationService {
         Conversation conversation = conversationRepository.findById(conversationId)
                 .orElseThrow(() -> new RuntimeException("Conversation not found"));
 
+        if (conversation.getIsGroupChat()) {
+            throw new RuntimeException("Conversation is group chat");
+        }
+
         List<ConversationMember> conversationMembers = conversationMemberRepository
                 .findByConversationId(conversationId);
 
