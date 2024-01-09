@@ -20,7 +20,6 @@ public class CreatePostArticleRequest {
     @Content
     private final String content;
 
-
     @Transient
     @VideoSize
     @ImageSize
