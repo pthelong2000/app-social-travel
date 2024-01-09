@@ -26,7 +26,7 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class ConversationServiceImpl implements ConversationService {
 
-    private final SystemDateTime systemDateTime;
+    private SystemDateTime systemDateTime = new SystemDateTime();
     private final ConversationRepository conversationRepository;
     private final ConversationMemberRepository conversationMemberRepository;
     private final ConversationCustomRepository conversationCustomRepository;
@@ -51,7 +51,7 @@ public class ConversationServiceImpl implements ConversationService {
 
         return ConversationResponse.builder()
                 .id(String.valueOf(conversation.getId()))
-                .conversationName(conversation.getConversationName())
+                .conversationName(conversation.getConversationName()) // todo isGroupChat ? conversationName is null ? concat name of other member : conversationName  : name of the other member
                 .avatar("link avatar")
                 .createdAt(convertDateTimeToString(conversation.getCreateAt()))
                 .memberCount(String.valueOf(conversationMembers.size()))
@@ -107,7 +107,23 @@ public class ConversationServiceImpl implements ConversationService {
                     .findConversationIdByTwoMemberId(authUserId, Long.parseLong(membersId.get(0)));
 
             if (conversationId == null) {
-                conversationId = conversationRepository.save(new Conversation()).getId();
+                conversationId = conversationRepository.save(Conversation
+                        .builder()
+                        .createAt(systemDateTime.now())
+                        .isGroupChat(false)
+                        .build()).getId();
+
+                conversationMemberRepository.saveAll(List.of(
+                        ConversationMember.builder()
+                                .conversationId(conversationId)
+                                .memberId(authUserId)
+                                .createAt(systemDateTime.now())
+                                .build(),
+                        ConversationMember.builder()
+                                .conversationId(conversationId)
+                                .memberId(Long.parseLong(membersId.get(0)))
+                                .createAt(systemDateTime.now())
+                                .build()));
             }
 
             return getConversationById(conversationId);
@@ -119,6 +135,12 @@ public class ConversationServiceImpl implements ConversationService {
                         .isGroupChat(true)
                         .createAt(systemDateTime.now())
                         .build()).getId();
+
+        conversationMemberRepository.save(ConversationMember.builder()
+                .conversationId(conversationId)
+                .memberId(authUserId)
+                .createAt(systemDateTime.now())
+                .build());
 
         conversationMemberRepository.saveAll(membersId.stream().map(memberId ->
                 ConversationMember.builder()
