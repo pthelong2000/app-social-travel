@@ -11,9 +11,7 @@ public class Constants {
 
     public static final String DOCUMENT_SIZE_INVALID = "common.message.validation.document_size.invalid";
 
-
     public static final String UPLOAD_FILE_FAILED = "common.message.response.upload_file_failed";
-
 
     public static final String DOWNLOAD_FILE_FAILED = "common.message.validation.download_failed";
 }

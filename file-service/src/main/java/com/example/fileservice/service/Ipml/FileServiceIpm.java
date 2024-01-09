@@ -47,7 +47,7 @@ public class FileServiceIpm implements FileService {
             String fileExtension = getFileExtension(Objects.requireNonNull(fileUpload.getOriginalFilename()));
             FileType fileType = determineFileType(fileExtension);
 
-            if (fileType != null) {
+            if (!Objects.isNull(fileType)) {
                 Map uploadOptions = ObjectUtils.asMap(
                         "resource_type", getFileResourceType(fileType)
                 );
