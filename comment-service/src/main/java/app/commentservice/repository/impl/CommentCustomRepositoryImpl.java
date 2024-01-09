@@ -31,9 +31,19 @@ public class CommentCustomRepositoryImpl implements CommentCustomRepository {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ParentComment addParentComment(ParentComment parentComment) {
         entityManager.persist(parentComment);
         return parentComment;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public void updateParentComment(long id, String content) {
+        entityManager.createNativeQuery("UPDATE parent_comment SET content = ? WHERE id = ?")
+                .setParameter(1, content)
+                .setParameter(2, id)
+                .executeUpdate();
     }
 
 

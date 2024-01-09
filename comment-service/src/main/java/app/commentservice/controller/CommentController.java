@@ -21,7 +21,8 @@ public class CommentController {
 
     @PostMapping
     public ResponseEntity<ParentCommentResponse> addParentComment(@RequestBody ParentCommentRequest parentCommentRequest){
-        return new ResponseEntity<>(null);
+
+        return new ResponseEntity<>(commentService.addParentComment(parentCommentRequest), HttpStatus.OK);
     }
 
     @PostMapping
