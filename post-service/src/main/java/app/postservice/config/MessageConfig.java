@@ -9,7 +9,7 @@ public class MessageConfig {
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasenames("classpath:i18n");
+        messageSource.setBasenames("message");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
