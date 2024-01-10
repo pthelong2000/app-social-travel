@@ -41,4 +41,20 @@ public class ConversationMemberCustomRepositoryImpl implements ConversationMembe
 
         return query.getResultList().isEmpty() ? null : (Long) query.getSingleResult();
     }
+
+    @Override
+    public void updateConversationMemberNickname(Long conversationId, Long memberId, String nickname) {
+        StringBuilder queryBuilder = new StringBuilder();
+        queryBuilder.append("UPDATE ConversationMember cm ");
+        queryBuilder.append("SET cm.nickname = :nickname ");
+        queryBuilder.append("WHERE cm.conversationId = :conversationId ");
+        queryBuilder.append("AND cm.memberId = :memberId");
+
+        Query query = entityManager.createQuery(queryBuilder.toString());
+        query.setParameter("nickname", nickname);
+        query.setParameter("conversationId", conversationId);
+        query.setParameter("memberId", memberId);
+
+        query.executeUpdate();
+    }
 }
