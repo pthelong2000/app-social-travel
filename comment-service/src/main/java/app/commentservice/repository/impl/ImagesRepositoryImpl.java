@@ -18,7 +18,7 @@ public class ImagesRepositoryImpl implements ImagesCustomRepository {
     private final EntityManager entityManager;
     @Override
     public Optional<Images> findImagesById(long id) {
-        TypedQuery query = entityManager.createQuery("SELECT i FROM Images i WHERE i.id = :id", Images.class);
+        TypedQuery<Images> query = entityManager.createQuery("SELECT i FROM Images i WHERE i.id = :id", Images.class);
         query.setParameter("id", id);
 
         return query.getResultList().stream().findFirst();
