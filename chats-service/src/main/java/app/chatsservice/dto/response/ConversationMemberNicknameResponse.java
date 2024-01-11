@@ -1,5 +1,6 @@
 package app.chatsservice.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -7,7 +8,12 @@ import lombok.Getter;
 @Builder
 public class ConversationMemberNicknameResponse {
 
+        @JsonProperty("conversation_id")
         private String conversationId;
+
+        @JsonProperty("member_id")
         private String memberId;
+
+        @JsonProperty("nickname")
         private String nickname;
 }
