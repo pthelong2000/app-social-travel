@@ -17,10 +17,10 @@ public class ImagesRepositoryImpl implements ImagesCustomRepository {
     @PersistenceContext
     private final EntityManager entityManager;
     @Override
-    public Optional<Images> findImagesById(long id) {
+    public Images findImagesById(long id) {
         TypedQuery<Images> query = entityManager.createQuery("SELECT i FROM Images i WHERE i.id = :id", Images.class);
         query.setParameter("id", id);
 
-        return query.getResultList().stream().findFirst();
+        return query.getSingleResult();
     }
 }
