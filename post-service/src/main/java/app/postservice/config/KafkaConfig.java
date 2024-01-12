@@ -23,7 +23,6 @@ import java.time.Duration;
 
 import static app.postservice.utils.kafka.Topics.*;
 
-
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
@@ -45,8 +44,6 @@ public class KafkaConfig {
                 .build();
     }
 
-
-    //this is the one that will get results from other topics to check
     @Bean
     public KStream<Long, PostArticle> stream(StreamsBuilder builder) {
 
@@ -62,12 +59,12 @@ public class KafkaConfig {
         KStream<Long, PostArticle> stockStream = builder
                 .stream(NEW_FEED,Consumed.with(keySerde, valueSerde));
 
-        //join records from both tables
+
         commentStream.join(
                         stockStream,
                         postArticleService::savePostContent,
-                        JoinWindows.of(Duration.ofSeconds(10)), // timestamps of matched records must fall within this window of time
-                        StreamJoined.with(keySerde, valueSerde, valueSerde)//the key must be the same, 1st stream serde, 2nd stream serde
+                        JoinWindows.of(Duration.ofSeconds(10)),
+                        StreamJoined.with(keySerde, valueSerde, valueSerde)
                 )
                 .peek((k,v)->log.info("Kafka stream match: key[{}],value[{}]",k,v))
                 .to(POST_ARTICLE);
