@@ -71,10 +71,6 @@ public class KafkaConfig {
 
         return commentStream;
     }
-    /**
-     * To build a persistent key-value store
-     * This KTable will be used to store all the Orders
-     ***/
 
     @Bean
     public KTable<Long, PostArticle> table(StreamsBuilder builder) {
