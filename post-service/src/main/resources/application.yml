@@ -1,3 +1,6 @@
+server:
+  port: 8080
+
 spring:
   application:
     name: post-service
@@ -22,6 +25,7 @@ spring:
           validator:
             apply_to_ddl: false
         dialect: org.hibernate.dialect.MySQL5Dialect
+
 spring.kafka:
   bootstrap-servers: 127.0.0.1:39092, 127.0.0.1:29092
   producer:
@@ -33,11 +37,18 @@ spring.kafka:
       default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
       spring.json.trusted.packages: "*"
     state-dir: /tmp/kafka-streams/
-
-
 spring.output.ansi.enabled: ALWAYS
-
 logging.pattern.console: "%clr(%d{HH:mm:ss.SSS}){blue} %clr(---){faint} %clr([%15.15t]){yellow} %clr(:){red} %clr(%m){faint}%n"
 
-server:
-  port: 8080
+springdoc:
+  swagger-ui.path: /test
+  api-docs.path: /test
+  swagger-ui:
+    tryItOutEnabled: true
+    swagger-ui:
+      filter=true
+post-article:
+  travel-social:
+    openapi:
+      dev-url: http://localhost:8080
+      prod-url: https://travel-social-post-api.com
