@@ -38,7 +38,7 @@ public class MessageServiceImpl implements MessageService {
             throw new RuntimeException("Conversation member not found");
         }
 
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl("http://localhost:8085/api/v1/file/upload")
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl("http://FILE-SERVICE/api/v1/file/upload")
                 .queryParam("file", request.getFileData());
 
         ResponseEntity<String> filePath = restTemplate.exchange(uriBuilder.toUriString(),
