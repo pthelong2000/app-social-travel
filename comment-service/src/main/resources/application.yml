@@ -12,6 +12,6 @@ spring:
       hibernate:
         ddl-auto: update
   application:
-    name: COMMENT-SERVICE
+    name: comment-service
   config:
     import: optional:configserver:http://localhost:9296

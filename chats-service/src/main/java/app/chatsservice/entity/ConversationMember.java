@@ -1,15 +1,15 @@
 package app.chatsservice.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @Getter
 @Entity
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "conversation_member")
@@ -17,11 +17,14 @@ public class ConversationMember extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "conversation_id", nullable = false)
-    private long conversationId;
+    private Long conversationId;
 
     @Column(name = "member_id", nullable = false)
-    private long memberId;
+    private Long memberId;
+
+    @Column(name = "nickname")
+    private String nickname;
 }

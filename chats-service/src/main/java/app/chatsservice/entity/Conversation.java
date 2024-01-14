@@ -1,12 +1,13 @@
 package app.chatsservice.entity;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @Getter
 @Entity
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "conversation")
@@ -14,5 +15,11 @@ public class Conversation extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+
+    @Column(name = "conversation_name")
+    private String conversationName;
+
+    @Column(name = "is_group_chat", columnDefinition = "boolean default false")
+    private Boolean isGroupChat;
 }
