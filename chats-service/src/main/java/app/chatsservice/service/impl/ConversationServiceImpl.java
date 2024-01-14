@@ -114,6 +114,7 @@ public class ConversationServiceImpl implements ConversationService {
                 conversationId = conversationRepository.save(Conversation
                         .builder()
                         .createAt(systemDateTime.now())
+                        .createdBy(authUserId)
                         .isGroupChat(false)
                         .build()).getId();
 
@@ -138,6 +139,7 @@ public class ConversationServiceImpl implements ConversationService {
                         .conversationName("name 1 concat name 2") //todo
                         .isGroupChat(true)
                         .createAt(systemDateTime.now())
+                        .createdBy(authUserId)
                         .build()).getId();
 
         conversationMemberRepository.save(ConversationMember.builder()

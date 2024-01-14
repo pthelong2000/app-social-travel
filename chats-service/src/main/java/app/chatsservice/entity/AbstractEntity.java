@@ -20,13 +20,13 @@ import java.time.LocalDateTime;
 public abstract class AbstractEntity {
 
     @CreatedBy
-    protected String createdBy;
+    protected Long createdBy;
 
     @CreatedDate
     protected LocalDateTime createAt;
 
     @LastModifiedBy
-    protected String lastModifiedBy;
+    protected Long lastModifiedBy;
 
     @LastModifiedDate
     protected LocalDateTime lastModifiedAt;
