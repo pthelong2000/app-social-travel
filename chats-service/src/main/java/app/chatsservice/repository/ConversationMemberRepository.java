@@ -10,4 +10,6 @@ import java.util.List;
 public interface ConversationMemberRepository extends JpaRepository<ConversationMember, Long> {
 
     List<ConversationMember> findByConversationId(Long conversationId);
+
+    Boolean existsByConversationIdAndMemberId(Long conversationId, Long memberId);
 }

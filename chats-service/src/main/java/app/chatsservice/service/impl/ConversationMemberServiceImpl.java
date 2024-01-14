@@ -1,6 +1,7 @@
 package app.chatsservice.service.impl;
 
 import app.chatsservice.dto.response.ConversationMemberNicknameResponse;
+import app.chatsservice.dto.response.ConversationMemberResponse;
 import app.chatsservice.entity.Conversation;
 import app.chatsservice.entity.ConversationMember;
 import app.chatsservice.repository.ConversationCustomRepository;
@@ -50,6 +51,34 @@ public class ConversationMemberServiceImpl implements ConversationMemberService 
                 .conversationId(String.valueOf(conversationId))
                 .memberId(String.valueOf(memberId))
                 .nickname(nickname)
+                .build();
+    }
+
+    @Override
+    public ConversationMemberResponse addConversationMember(Long conversationId, Long memberId) {
+        // User id of the authenticated user
+        Long authUserId = 1L;
+
+        // todo check memberId exists in user table
+
+        conversationRepository.findById(conversationId)
+                .orElseThrow(() -> new RuntimeException("Conversation not found"));
+
+        if (conversationMemberRepository.existsByConversationIdAndMemberId(conversationId, memberId)) {
+            throw new RuntimeException("Conversation member already exists");
+        }
+
+        ConversationMember conversationMember = ConversationMember.builder()
+                .conversationId(conversationId)
+                .memberId(memberId)
+                .createAt(systemDateTime.now())
+                .build();
+
+        conversationMemberRepository.save(conversationMember);
+
+        return ConversationMemberResponse.builder()
+                .conversationId(String.valueOf(conversationId))
+                .memberId(String.valueOf(memberId))
                 .build();
     }
 }

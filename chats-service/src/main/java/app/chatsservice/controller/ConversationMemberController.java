@@ -2,6 +2,7 @@ package app.chatsservice.controller;
 
 import app.chatsservice.dto.request.ConversationMemberNicknameRequest;
 import app.chatsservice.dto.response.ConversationMemberNicknameResponse;
+import app.chatsservice.dto.response.ConversationMemberResponse;
 import app.chatsservice.service.ConversationMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,5 +23,13 @@ public class ConversationMemberController {
             @RequestBody ConversationMemberNicknameRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(conversationMemberService
                 .updateConversationMemberNickname(conversationId, memberId, request.getNickname()));
+    }
+
+    @PostMapping("{memberId}/add")
+    public ResponseEntity<ConversationMemberResponse> addMember(
+            @PathVariable("conversationId") Long conversationId,
+            @PathVariable("memberId") Long memberId) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(conversationMemberService
+                .addConversationMember(conversationId, memberId));
     }
 }
