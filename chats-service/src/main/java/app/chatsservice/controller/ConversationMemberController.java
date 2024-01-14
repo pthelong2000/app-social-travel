@@ -32,4 +32,12 @@ public class ConversationMemberController {
         return ResponseEntity.status(HttpStatus.CREATED).body(conversationMemberService
                 .addConversationMember(conversationId, memberId));
     }
+
+    @PostMapping("{memberId}/remove")
+    public ResponseEntity<ConversationMemberResponse> removeMember(
+            @PathVariable("conversationId") Long conversationId,
+            @PathVariable("memberId") Long memberId) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(conversationMemberService
+                .removeConversationMember(conversationId, memberId));
+    }
 }

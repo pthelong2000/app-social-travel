@@ -81,4 +81,23 @@ public class ConversationMemberServiceImpl implements ConversationMemberService 
                 .memberId(String.valueOf(memberId))
                 .build();
     }
+
+    @Override
+    public ConversationMemberResponse removeConversationMember(Long conversationId, Long memberId) {
+        // User id of the authenticated user
+        Long authUserId = 1L;
+
+        conversationRepository.findById(conversationId)
+                .orElseThrow(() -> new RuntimeException("Conversation not found"));
+
+        if (!conversationMemberRepository.existsByConversationIdAndMemberId(conversationId, memberId)) {
+            throw new RuntimeException("Conversation member not found");
+        }
+
+        conversationMemberRepository.deleteByConversationIdAndMemberId(conversationId, memberId);
+        return ConversationMemberResponse.builder()
+                .conversationId(String.valueOf(conversationId))
+                .memberId(String.valueOf(memberId))
+                .build();
+    }
 }
