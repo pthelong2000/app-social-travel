@@ -27,19 +27,18 @@ ext {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation group: 'org.apache.kafka', name: 'kafka-streams', version: '3.4.0'
-    implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: '3.0.9'
+    implementation 'org.apache.kafka:kafka-streams'
+    implementation 'org.springframework.kafka:spring-kafka'
     implementation group: 'org.apache.kafka', name: 'kafka-clients', version: '3.4.0'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.3.0'
     implementation 'javax.validation:validation-api'
     implementation 'org.hibernate.validator:hibernate-validator'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    implementation 'org.clamav:clamav-client:1.1.7'
     implementation group: 'com.cloudinary', name: 'cloudinary-core', version: '1.30.0'
     implementation group: 'com.cloudinary', name: 'cloudinary-http44', version: '1.30.0'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.mysql:mysql-connector-j:8.0.33'
     compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
