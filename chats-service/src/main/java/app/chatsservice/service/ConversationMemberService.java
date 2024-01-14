@@ -1,5 +1,6 @@
 package app.chatsservice.service;
 
+import app.chatsservice.dto.response.ConversationAllMemberResponse;
 import app.chatsservice.dto.response.ConversationMemberNicknameResponse;
 import app.chatsservice.dto.response.ConversationMemberResponse;
 
@@ -10,4 +11,6 @@ public interface ConversationMemberService {
     ConversationMemberResponse addConversationMember(Long conversationId, Long memberId);
 
     ConversationMemberResponse removeConversationMember(Long conversationId, Long memberId);
+
+    ConversationAllMemberResponse getConversationMembers(Long conversationId);
 }

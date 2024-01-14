@@ -1,6 +1,7 @@
 package app.chatsservice.controller;
 
 import app.chatsservice.dto.request.ConversationMemberNicknameRequest;
+import app.chatsservice.dto.response.ConversationAllMemberResponse;
 import app.chatsservice.dto.response.ConversationMemberNicknameResponse;
 import app.chatsservice.dto.response.ConversationMemberResponse;
 import app.chatsservice.service.ConversationMemberService;
@@ -39,5 +40,11 @@ public class ConversationMemberController {
             @PathVariable("memberId") Long memberId) {
         return ResponseEntity.status(HttpStatus.CREATED).body(conversationMemberService
                 .removeConversationMember(conversationId, memberId));
+    }
+
+    @GetMapping
+    public ResponseEntity<ConversationAllMemberResponse> getMembers(
+            @PathVariable("conversationId") Long conversationId) {
+        return ResponseEntity.ok(conversationMemberService.getConversationMembers(conversationId));
     }
 }

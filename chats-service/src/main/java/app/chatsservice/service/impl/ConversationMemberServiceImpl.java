@@ -1,5 +1,6 @@
 package app.chatsservice.service.impl;
 
+import app.chatsservice.dto.response.ConversationAllMemberResponse;
 import app.chatsservice.dto.response.ConversationMemberNicknameResponse;
 import app.chatsservice.dto.response.ConversationMemberResponse;
 import app.chatsservice.entity.Conversation;
@@ -64,6 +65,10 @@ public class ConversationMemberServiceImpl implements ConversationMemberService 
         conversationRepository.findById(conversationId)
                 .orElseThrow(() -> new RuntimeException("Conversation not found"));
 
+        if (!conversationMemberRepository.existsByConversationIdAndMemberId(conversationId, authUserId)) {
+            throw new RuntimeException("Conversation member not found");
+        }
+
         if (conversationMemberRepository.existsByConversationIdAndMemberId(conversationId, memberId)) {
             throw new RuntimeException("Conversation member already exists");
         }
@@ -90,6 +95,10 @@ public class ConversationMemberServiceImpl implements ConversationMemberService 
         conversationRepository.findById(conversationId)
                 .orElseThrow(() -> new RuntimeException("Conversation not found"));
 
+        if (!conversationMemberRepository.existsByConversationIdAndMemberId(conversationId, authUserId)) {
+            throw new RuntimeException("Conversation member not found");
+        }
+
         if (!conversationMemberRepository.existsByConversationIdAndMemberId(conversationId, memberId)) {
             throw new RuntimeException("Conversation member not found");
         }
@@ -98,6 +107,31 @@ public class ConversationMemberServiceImpl implements ConversationMemberService 
         return ConversationMemberResponse.builder()
                 .conversationId(String.valueOf(conversationId))
                 .memberId(String.valueOf(memberId))
+                .build();
+    }
+
+    @Override
+    public ConversationAllMemberResponse getConversationMembers(Long conversationId) {
+        // User id of the authenticated user
+        Long authUserId = 1L;
+
+        conversationRepository.findById(conversationId)
+                .orElseThrow(() -> new RuntimeException("Conversation not found"));
+
+        if (!conversationMemberRepository.existsByConversationIdAndMemberId(conversationId, authUserId)) {
+            throw new RuntimeException("Conversation member not found");
+        }
+
+        List<ConversationMember> conversationMembers = conversationMemberRepository
+                .findByConversationId(conversationId);
+
+        return ConversationAllMemberResponse.builder()
+                .conversationId(String.valueOf(conversationId))
+                .members(conversationMembers.stream().map(conversationMember -> ConversationAllMemberResponse.Member.builder()
+                        .id(String.valueOf(conversationMember.getMemberId()))
+                        .nickname(conversationMember.getNickname())
+                        .name("name of member")
+                        .build()).toList())
                 .build();
     }
 }
