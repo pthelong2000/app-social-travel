@@ -17,16 +17,16 @@ public class Message extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+
+    @Column(name = "conversation_id", nullable = false)
+    private Long conversationId;
 
     @Column(name = "content")
     private String content;
 
     @Column(name = "sender_id", nullable = false)
-    private long senderId;
-
-    @Column(name = "receiver_id", nullable = false)
-    private long receiverId;
+    private Long senderId;
 
     @Column(name = "file_path")
     private String filePath;
