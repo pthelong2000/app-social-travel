@@ -18,12 +18,12 @@ import com.cloudinary.utils.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.config.StreamsBuilderFactoryBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import static app.postservice.utils.kafka.Topics.POST_ARTICLE;
 
 import java.io.IOException;
 import java.util.List;
@@ -43,8 +43,6 @@ public class PostArticleServiceImpl implements PostArticleService {
     private final KafkaTemplate<Long, CreatePostArticleRequest> kafkaTemplate;
     private final StreamsBuilderFactoryBean kafkaStreamsFactory;
 
-    @Value("${kafka.topic.posts}")
-    private String postsTopic;
 
 
     @Override
@@ -59,7 +57,7 @@ public class PostArticleServiceImpl implements PostArticleService {
                 .content(createPostArticleRequest.getContent())
                 .status(StatusPost.PUBLISHED.getValue())
                 .build());
-        kafkaTemplate.send(new ProducerRecord<>(postsTopic, createPostArticleRequest));
+        kafkaTemplate.send(new ProducerRecord<>(POST_ARTICLE, createPostArticleRequest));
     }
 
     @Override

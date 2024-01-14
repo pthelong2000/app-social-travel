@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: post-service
+  devtools:
+    add-properties: off
   cloud:
     config:
       import:

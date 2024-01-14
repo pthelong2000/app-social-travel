@@ -37,7 +37,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
   kafka-2:
-    container_name: ecommerce-kafka-2
+    container_name: post-kafka-2
     image: confluentinc/cp-kafka:latest
     depends_on:
       - zookeeper-1
