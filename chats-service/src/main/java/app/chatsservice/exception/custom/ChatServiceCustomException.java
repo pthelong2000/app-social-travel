@@ -1,4 +1,4 @@
-package app.chatsservice.exception;
+package app.chatsservice.exception.custom;
 
 public class ChatServiceCustomException extends RuntimeException {
 
