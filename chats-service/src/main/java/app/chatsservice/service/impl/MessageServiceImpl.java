@@ -57,8 +57,8 @@ public class MessageServiceImpl implements MessageService {
                 .createdBy(authUserId)
                 .build();
 
-        kafkaTemplate.send("chat", message);
-
         messageRepository.save(message);
+
+        kafkaTemplate.send("chat", message);
     }
 }
