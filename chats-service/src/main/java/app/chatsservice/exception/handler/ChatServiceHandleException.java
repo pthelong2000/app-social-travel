@@ -19,4 +19,13 @@ public class ChatServiceHandleException {
                 .message(exception.getMessage())
                 .build());
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException exception) {
+        log.error(exception.getMessage(), exception);
+        return ResponseEntity.badRequest().body(ErrorResponse.builder()
+                .errorCode("400")
+                .message(exception.getMessage())
+                .build());
+    }
 }
