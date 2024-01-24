@@ -3,7 +3,6 @@ package app.chatsservice.service.impl;
 import app.chatsservice.dto.response.ConversationAllMemberResponse;
 import app.chatsservice.dto.response.ConversationMemberNicknameResponse;
 import app.chatsservice.dto.response.ConversationMemberResponse;
-import app.chatsservice.entity.Conversation;
 import app.chatsservice.entity.ConversationMember;
 import app.chatsservice.repository.ConversationCustomRepository;
 import app.chatsservice.repository.ConversationMemberCustomRepository;
