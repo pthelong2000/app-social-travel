@@ -25,7 +25,6 @@ public class ConversationMemberServiceImpl implements ConversationMemberService 
     private final SystemDateTime systemDateTime;
     private final ConversationRepository conversationRepository;
     private final ConversationMemberRepository conversationMemberRepository;
-    private final ConversationCustomRepository conversationCustomRepository;
     private final ConversationMemberCustomRepository conversationMemberCustomRepository;
 
     @Override
